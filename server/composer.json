@@ -1,0 +1,14 @@
+{
+    "name": "erichie/warbler",
+    "description": "A Twitter Clone",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Edward Richards",
+            "email": "e4.rich87@gmail.com"
+        }
+    ],
+    "require": {
+        "nesbot/carbon": "^1.22"
+    }
+}
