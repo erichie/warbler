@@ -80,7 +80,32 @@ else if (!empty($_GET)) {
         }
     }
 
-    if (isset($_GET['warble_search'])) {
+    if (isset($_GET['hashtag'])) {
+        $db = new DBHelper();
+        $hashtag = $_GET['hashtag'];
+        $hashtag_exists = $db->hashtagExists($hashtag);
         
+        if (!is_null($hashtag_exists)) {
+            $hashtag_warbles = $db->getByHashtagId($hashtag_exists['id']);
+
+            $all_warbles = [];
+            foreach($hashtag_warbles as $hashtag_warble) {
+                $warble = $db->getById('warbles', $hashtag_warble['warble_id']);
+                $user = $db->getById('users', $warble['user_id']);
+                unset($user['password']);
+                unset($warble['user_id']);
+                $carbon = new Carbon\Carbon($warble['date']);
+                $warble['date'] = $carbon->diffForHumans();
+                $warble['user'] = $user;
+                $all_warbles[] = $warble;
+            }
+            
+            http_response_code(200);
+            echo json_encode(['warbles' => $all_warbles]);
+        }
+        else {
+            http_response_code(404);
+            echo json_encode(['type' => 'warbles-not-found']);
+        }
     }
 }

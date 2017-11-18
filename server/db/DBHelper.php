@@ -76,7 +76,12 @@ class DBHelper {
         
         $result = $this->db->query($select_sql);
     
-        return $result->fetch_assoc();
+        $records = [];
+        while($row = $result->fetch_assoc()) {
+            $records[] = $row;
+        }
+
+        return $records;
     }
 
     public function create($table, $data)

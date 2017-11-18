@@ -56,7 +56,7 @@ export default {
 	methods: {
 		search: function(e) {
 			e.preventDefault();
-			console.log(this.searchTerm);
+			this.$router.push('/feed/hashtag?tag='+this.searchTerm.replace('#', ''))
 		},
 		logout: function() {
 			this.$session.destroy()

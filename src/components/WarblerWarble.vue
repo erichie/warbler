@@ -3,7 +3,7 @@
         <div class="card-body">
             <h4 class="card-title">{{warble.user.display_name}} <span class="username">@{{warble.user.username}}</span></h4>
             <h6 class="card-subtitle mb-2 text-muted">{{warble.date}}</h6>
-            <p class="card-text">{{warble.content}}</p>
+            <p class="card-text" v-html="warble.content"></p>
         </div>
     </div>
 </template>
@@ -20,8 +20,17 @@ export default {
             var hashtagRegex = /(#)\w*/g
             var hashtagArray = this.warble.content.match(hashtagRegex)
             if (hashtagArray != null) {
-                console.log(hashtagArray)
+                for (var key in hashtagArray) {
+                    var hashtag = hashtagArray[key]
+                    var linkedHashtag = '<a href="/#/feed/hashtag?tag='+hashtag.replace('#', '')+'">' + hashtag + '</a>'
+                    this.warble.content = this.warble.content.replace(hashtag, linkedHashtag)
+                }
             }
+        }
+    },
+    watch: {
+        warble: function() {
+            this.findHashtags()
         }
     }
 }

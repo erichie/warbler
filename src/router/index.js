@@ -5,6 +5,7 @@ import WarblerProfile from '@/components/WarblerProfile'
 import WarblerLogin from '@/components/WarblerLogin'
 import WarblerCreateAccount from '@/components/WarblerCreateAccount'
 import WarblerCompose from '@/components/WarblerCompose'
+import WarblerHashtagFeed from '@/components/WarblerHashtagFeed'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/warble',
       name: 'Warbler Compose',
       component: WarblerCompose
+    },
+    {
+      path: '/feed/hashtag',
+      name: 'Warbler Hashtag Feed',
+      component: WarblerHashtagFeed
     }
   ]
 })
