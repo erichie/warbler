@@ -2,6 +2,9 @@
 	<div>
 		<wblr-nav></wblr-nav>
 		<div class="container wblr-login">
+			<div class="alert alert-danger" role="alert" v-if="error">
+				{{errorMessage}}
+			</div>
 			<label for="username">Username</label>
 			<div class="input-group">
 				<input v-model="username" id="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="username">
@@ -25,7 +28,9 @@ export default {
 	data () {
 		return {
 			username: '',
-			password: ''
+			password: '',
+			error: false,
+			errorMessage: ''
 		}
 	},
 	methods: {
@@ -36,13 +41,21 @@ export default {
 
 			this.$http.post('auth/login.php', params)
 			.then(response => {
+				this.error = false
 				this.$session.set('user_id', response.data.user.id)
 				this.$session.set('username', this.username)
                 this.$session.set('loggedIn', true)
 				this.$router.push('profile')
 			})
 			.catch(error => {
-				console.log(error)
+				if (error.response.data.type == 'username-incorrect-error') {
+					this.error = true
+					this.errorMessage = 'That username is incorrect'
+				}
+				else if (error.response.data.type == 'password-incorrect-error') {
+					this.error = true
+					this.errorMessage = 'That password is incorrect'
+				}
 			})
 		}
 	}
@@ -52,5 +65,8 @@ export default {
 <style scoped>
 .wblr-login {
 	margin-top: 20px;
+}
+.error-message {
+	color: red;
 }
 </style>
