@@ -7,6 +7,7 @@
 ``` bash
 # install dependencies
 npm install
+composer install (inside of the server folder)
 
 # serve with hot reload at localhost:8080
 npm run dev
