@@ -2,9 +2,14 @@
 	<div>
 		<wblr-nav></wblr-nav>
 		<div class="container wblr-profile">
-			<h1>{{user.display_name}}</h1>
-			<h3>{{user.username}}</h3>
-			<h3>{{user.email}}</h3>
+			<div class="card" style="width: 20rem;">
+				<div class="card-body">
+					<h4 class="card-title">{{user.display_name}}</h4>
+					<p class="card-text">{{user.username}}</p>
+					<p class="card-text">{{user.email}}</p>
+					<a href="#" class="btn btn-primary">Edit Profile</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

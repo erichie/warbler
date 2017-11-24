@@ -53,6 +53,49 @@ if (!empty($_POST)) {
             echo json_encode(['type' => 'warble-created-success']);
         }
     }
+
+    if (isset($_POST['warble_id']) && isset($_POST['user_id'])) {
+        $db = new DBHelper();
+        $user_id = $_POST['user_id'];
+        $warble_id = $_POST['warble_id'];
+
+        $warble = $db->getById('warbles', $warble_id);
+        $user_liked = $db->userLikedWarble($user_id, $warble_id);
+
+        if (is_null($user_liked)) {
+            $user_like = [
+                'user_id' => $user_id,
+                'warble_id' => $warble_id
+            ];
+
+            $warble['likes'] += 1;
+            unset($warble['id']);
+
+            $warble_updated = $db->update('warbles', $warble_id, $warble);
+
+            if ($warble_updated) {
+                $result = $db->create('user_likes', $user_like);
+
+                if ($result) {
+                    http_response_code(200);
+                    echo json_encode(['type' => 'user-like-success']);
+                }
+            }
+        }
+        else {
+            $warble['likes'] -= 1;
+            unset($warble['id']);
+
+            $warble_updated = $db->update('warbles', $warble_id, $warble);
+
+            if ($warble_updated) {
+                $deleted = $db->delete('user_likes', $user_liked['id']);
+
+                http_response_code(200);
+                echo json_encode(['type' => 'user-unlike-success']);
+            }
+        }
+    }
 }
 else if (!empty($_GET)) {
     if (isset($_GET['all_warbles'])) {

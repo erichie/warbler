@@ -84,6 +84,15 @@ class DBHelper {
         return $records;
     }
 
+    public function userLikedWarble($user_id, $warble_id)
+    {
+        $select_sql = "SELECT * FROM user_likes WHERE user_id = '$user_id' AND warble_id = '$warble_id';";
+        
+        $result = $this->db->query($select_sql);
+    
+        return $result->fetch_assoc();
+    }
+
     public function create($table, $data)
     {
         $length = count($data);
