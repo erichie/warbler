@@ -1,11 +1,23 @@
 $purple: #B600D7;
 $light-blue: #00C8FF;
+$green: #28a745;
+$white: #fff;
+$red: #dc3545;
 
 $theme-colors: (
   "primary": $purple,
-  "info": $light-blue
+  "info": $light-blue,
+  "success": $green
 );
 
-// html {
-//   background-color: #f2f2f2;
-// }
+.alert-success {
+  background-color: $green !important;
+  border-color: $green !important;
+  color: $white !important;
+}
+
+.alert-danger {
+  background-color: $red !important;
+  border-color: $red !important;
+  color: $white !important;
+}

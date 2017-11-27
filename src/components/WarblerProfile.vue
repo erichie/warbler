@@ -30,15 +30,16 @@ export default {
 	data () {
 		return {
 			user: {},
-			warbles: []
+			warbles: [],
+			alertMessage: ''
 		}
 	},
 	created: function() {
-		if (this.$session.exists() && this.$session.has('username') && this.$session.has('loggedIn')) {
+		if (this.$session.exists() && this.$session.has('user_id') && this.$session.has('loggedIn')) {
 			this.loggedIn = true
 			this.$http.get('controllers/UserController.php', {
 				params: {
-					username: this.$session.get('username')
+					user_id: this.$session.get('user_id')
 				}
 			})
 			.then(response => {
