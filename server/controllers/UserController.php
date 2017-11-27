@@ -10,9 +10,15 @@ if (!empty($_GET)) {
         $user = $db->getByUsername('users', $username);
         
         if ($user) {
+            $warbles = [];
+            $user_warbles = $db->getWarblesByUserId($user['id']);
+            foreach ($user_warbles as $user_warble) {
+                $user_warble['user'] = $user;
+                $warbles[] = $user_warble;
+            }
             unset($user['password']);
             http_response_code(200);
-            echo json_encode(['user' => $user]);
+            echo json_encode(['user' => $user, 'warbles' => $warbles]);
         }
     }
 }

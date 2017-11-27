@@ -37,7 +37,7 @@ class DBHelper {
     
         $records = [];
         while($row = $result->fetch_assoc()) {
-        $records[] = $row;
+            $records[] = $row;
         }
     
         return $records;
@@ -50,6 +50,20 @@ class DBHelper {
         $result = $this->db->query($select_sql);
     
         return $result->fetch_assoc();
+    }
+
+    public function getWarblesByUserId($user_id)
+    {
+        $select_sql = "SELECT * FROM warbles WHERE user_id = $user_id ORDER BY date DESC;";
+        
+        $result = $this->db->query($select_sql);
+    
+        $records = [];
+        while($row = $result->fetch_assoc()) {
+            $records[] = $row;
+        }
+    
+        return $records;
     }
 
     public function getByUsername($table, $username)

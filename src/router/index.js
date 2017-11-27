@@ -6,6 +6,7 @@ import WarblerLogin from '@/components/WarblerLogin'
 import WarblerCreateAccount from '@/components/WarblerCreateAccount'
 import WarblerCompose from '@/components/WarblerCompose'
 import WarblerHashtagFeed from '@/components/WarblerHashtagFeed'
+import WarblerEditProfile from '@/components/WarblerEditProfile'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
       path: '/profile',
       name: 'Warbler Profile',
       component: WarblerProfile
+    },
+    {
+      path: '/profile/edit',
+      name: 'Warbler Edit Profile',
+      component: WarblerEditProfile
     },
     {
       path: '/login',
