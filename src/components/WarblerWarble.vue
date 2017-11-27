@@ -65,6 +65,12 @@ export default {
     border: none;
 }
 
+@media only screen and (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
+}
+
 .card-subtitle {
     font-size: 11px;
 }

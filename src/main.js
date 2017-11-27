@@ -13,7 +13,8 @@ import WarblerWarble from '@/components/WarblerWarble'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:8888/dgm3790/warbler/server/',
+  // baseURL: './server', // prod url
+  baseURL: 'http://localhost:8888/dgm3790/warbler/server/', // dev url
   headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
 })
 
