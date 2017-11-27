@@ -7,7 +7,7 @@
 					<div class="card" style="width: 20rem;">
 						<div class="card-body">
 							<h4 class="card-title">{{user.display_name}}</h4>
-							<p class="card-text">{{user.username}}</p>
+							<p class="card-text">@{{user.username}}</p>
 							<p class="card-text">{{user.email}}</p>
 							<router-link to="/profile/edit" class="btn btn-primary">Edit Profile</router-link>
 						</div>
