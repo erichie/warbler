@@ -2,6 +2,9 @@
     <div>
         <wblr-nav></wblr-nav>
         <div class="container wblr-create-account">
+            <div v-if="showAlert" :class="alertClass" role="alert">
+				{{alertMessage}}
+			</div>
             <label for="username">Username</label>
             <div class="input-group">
                 <input v-model="username" id="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="username">
@@ -41,7 +44,10 @@ export default {
             email: '',
             password: '',
             password2: '',
-            displayName: ''
+            displayName: '',
+            alertMessage: '',
+			showAlert: false,
+            alertClass: ''
         }
     },
     methods: {
@@ -60,7 +66,11 @@ export default {
 				this.$router.push('/profile')
 			})
 			.catch(error => {
-				console.log(error)
+				if (error.response.data.type == 'username-exists-error') {
+                    this.alertClass = 'alert alert-danger'
+                    this.alertMessage = error.response.data.message
+                    this.showAlert = true
+                }
 			})
         }
     }
